@@ -1,12 +1,18 @@
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+from .models import *
+
+menu = ["О сайте", "Добавить статью", "Обратная связь", "Контакты"]
 
 def index(request):
-    return HttpResponse("Wiki main page")
+    posts = Wiki.objects.all()
+    return render(request,'wiki/index.html', {'posts': posts, 'menu': menu, 'title': 'Главная страница'})
+
+def about(request):
+    return render(request,'wiki/about.html', {'menu': menu, 'title': 'О сайте'})
 
 def categories(request, cat):
-    if request.GET:
-        print(request.GET)
     return HttpResponse(f"<h1>Статьи по категориям</h1><p>Категория <b>{cat}</b></p>")
 
 def archive(request, year):
