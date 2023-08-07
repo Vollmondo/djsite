@@ -1,19 +1,61 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{% static 'wiki/css/styles.css' %}" rel="stylesheet"/>
+    <link type="image/x-icon" href="{% static 'wiki/images/logo5.png' %}" rel="shortcut icon"/>
+
    <title>{{title}}</title>
+
 </head>
 <body>
+<div class="app-container">
 {% block mainmenu %}
-<ul>
-        {% for m in menu%}
-        <li>{{m}}</li>
-        {% endfor %}
-</ul>
-{% endblock mainmenu %}
+		<div class="header">
+            <div class="logo-container"><a href="#"><img class="logo" src="{% static 'wiki/images/logo.png' %}"/></a></div>
 
-{% block content %}
-{% endblock content %}
+			<ul id="mainmenu" class="mainmenu">
+{% for m in menu %}
+	{% if not forloop.last %}
+			<li><a href="#">{{m.title}}</a></li>
+	{% else %}
+			<li class="last"><a href="#">{{m.title}}</a></li>
+	{% endif %}
+{% endfor %}
+			</ul>
+			<div class="clear"></div>
+		</div>
+{% endblock mainmenu %}
+<div class="container">
+    <div class="table-content">
+        <div valign="top" class="left-chapters">
+            <ul id="leftchapters">
+                <li class="selected">Все категории</li>
+                <li><a href="#">Корабли</a></li>
+                <li><a href="#">Такелаж</a></li>
+                <li><a href="#">Вооружение</a></li>
+                <li class="share">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+        <!-- Хлебные крошки -->
+        {% block breadcrumbs %}
+        {% endblock %}
+
+        <!-- Блок контента -->
+    <div class="content-text">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+    <div id="footer">
+		<p>&copy;</p>
+	</div>
+    </div>
 </body>
 </html>
