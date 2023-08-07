@@ -15,14 +15,14 @@
 <div class="app-container">
 {% block mainmenu %}
 		<div class="header">
-            <div class="logo-container"><a href="#"><img class="logo" src="{% static 'wiki/images/logo.png' %}"/></a></div>
+            <div class="logo-container"><a href="{% url 'home' %}"><img class="logo" src="{% static 'wiki/images/logo.png' %}"/></a></div>
 
 			<ul id="mainmenu" class="mainmenu">
 {% for m in menu %}
 	{% if not forloop.last %}
-			<li><a href="#">{{m.title}}</a></li>
+			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% else %}
-			<li class="last"><a href="#">{{m.title}}</a></li>
+			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% endif %}
 {% endfor %}
 			</ul>
