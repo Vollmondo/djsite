@@ -25,7 +25,6 @@ def show_post(request, post_slug):
         'post': post,
         'menu': menu,
         'title': post.title,
-        'cat_selected': post.cat_id,
     }
     return render(request, 'wiki/post.html', context=context)
 
@@ -33,15 +32,15 @@ def show_category(request, cat_slug):
     posts = Wiki.objects.filter(cat__slug=cat_slug)
     if len(posts) ==0:
         raise Http404()
-
+    cat = get_object_or_404(Category, slug=cat_slug)
     context = {
         'posts': posts,
         'menu': menu,
-        'title': 'Главная страница',
-        'cat_selected': cat_slug,
+        'title': cat.name,
+        'description': cat.description,
 
     }
-    return render(request, 'wiki/index.html', context=context)
+    return render(request, 'wiki/category.html', context=context)
 
 def about(request):
     return render(request,'wiki/about.html', {'menu': menu, 'title': 'О сайте'})
@@ -54,9 +53,6 @@ def login(request):
 
 def addpage(request):
     return HttpResponse('Добавить статью')
-
-def categories(request, cat):
-    return HttpResponse(f"<h1>Статьи по категориям</h1><p>Категория <b>{cat}</b></p>")
 
 def archive(request, year):
     return HttpResponse(f"<h1>Архив по годам</h1><p>Архив за <b>{year}</b> год</p>")

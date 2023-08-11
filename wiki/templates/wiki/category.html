@@ -1,0 +1,31 @@
+{% extends 'wiki/base.html' %}
+
+{% block content %}
+
+<h1>{{title}}</h1>
+
+{% autoescape off %}
+{{description|linebreaks}}
+{% endautoescape %}
+
+<ul class="list-articles">
+
+		{% for p in posts %}
+				<li>
+					<div class="article-panel">
+						<p class="last">Дата: {{ p.time_update|date:"d-m-Y H:i:s" }}</p>
+					</div>
+					{% if p.photo %}
+						<img class="img-article-left thumb" src="{{p.photo.url}}">
+					{% endif %}
+					<h2>{{p.title}}</h2>
+		{% autoescape off %}
+		{{p.content|linebreaks|truncatewords:30}}
+		{% endautoescape %}
+				<div class="clear"></div>
+				<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Читать пост</a></p>
+				</li>
+		{% endfor %}
+
+</ul>
+{% endblock %}
