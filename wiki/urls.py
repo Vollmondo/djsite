@@ -8,6 +8,7 @@ urlpatterns = [
     re_path(r'^archive/(?P<year>[0-9]{4})/', archive),
     path('addpage/', addpage, name='add_page'),
     path('contacts', contacts, name='contacts'),
+    path('feedback', feedback, name='feedback'),
     path('login', login, name='login'),
     path('post/<slug:post_slug>/', show_post, name='post'),
     path('category/<slug:cat_slug>/', show_category, name='category'),

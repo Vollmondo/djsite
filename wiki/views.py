@@ -1,12 +1,14 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
+from .forms import *
 from .models import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
-        {'title': "Обратная связь", 'url_name': 'contacts'},
-        {'title': "Контакты", 'url_name': 'login'}]
+        {'title': "Обратная связь", 'url_name': 'feedback'},
+        {'title': "Контакты", 'url_name': 'contacts'},
+        {'title': "Войти", 'url_name': 'login'}]
 
 def index(request):
     posts = Wiki.objects.all()
@@ -45,14 +47,24 @@ def show_category(request, cat_slug):
 def about(request):
     return render(request,'wiki/about.html', {'menu': menu, 'title': 'О сайте'})
 
+def feedback(request):
+    return render(request,'wiki/feedback.html', {'menu': menu, 'title': 'Обратная связь'})
+
 def contacts(request):
-    return HttpResponse('Обратная связь')
+    return render(request,'wiki/contacts.html', {'menu': menu, 'title': 'Контакты'})
 
 def login(request):
-    return HttpResponse('Авторизация')
+    return render(request,'wiki/login.html', {'menu': menu, 'title': 'Войти'})
 
 def addpage(request):
-    return HttpResponse('Добавить статью')
+    if request.method == 'POST':
+        form = AddPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = AddPostForm()
+    return render(request,'wiki/addpage.html', {'form': form, 'menu': menu, 'title': 'Добавление статьи'})
 
 def archive(request, year):
     return HttpResponse(f"<h1>Архив по годам</h1><p>Архив за <b>{year}</b> год</p>")
