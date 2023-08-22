@@ -18,7 +18,7 @@
 		<div class="header">
             <div class="logo-container"><a href="{% url 'home' %}"><img class="logo" src="{% static 'wiki/images/logo.png' %}"/></a></div>
 
-			<ul id="mainmenu" class="mainmenu">
+			<div class="mainmenu-container"><ul id="mainmenu" class="mainmenu">
 {% for m in menu %}
 	{% if not forloop.last %}
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
@@ -26,7 +26,7 @@
 			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% endif %}
 {% endfor %}
-			</ul>
+            </ul></div>
 			<div class="clear"></div>
 		</div>
 {% endblock mainmenu %}
