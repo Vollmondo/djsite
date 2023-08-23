@@ -1,0 +1,14 @@
+{% extends 'wiki/base.html' %}
+
+{% block content %}
+
+<h1>Результаты поиска для "{{ query }}"</h1>
+
+<ul>
+{% for result in results %}
+    <li><a href="{{ result.get_absolute_url }}">{{ result.title }}</a></li>
+{% empty %}
+    <li>Нет результатов</li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -12,5 +12,5 @@ urlpatterns = [
     path('login', login, name='login'),
     path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
     path('category/<slug:cat_slug>/', WikiCategory.as_view(), name='category'),
-
+    path('search/', WikiSearch.as_view(), name='search')
 ]

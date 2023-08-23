@@ -86,7 +86,7 @@ ul.list-articles li {
 }
 
 .logo-container{
-    width 80px;
+    width: 80px;
 }
 
 .logo {
@@ -123,6 +123,35 @@ ul.mainmenu li a {
 }
 ul.mainmenu li a:hover {
 	color: #808080;
+}
+
+.search-form{
+	padding: 0;
+	width: 130px;
+	height: 25px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.search-form-input-cntr{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.search-form-input{
+    width: 100px;
+	box-sizing: border-box;
+	height: 25px;
+
+}
+
+.search-form-btn{
+    background: url('../images/search-button.png') no-repeat;
+    background-size: 20px 20px;
+	height: 25px;
+	width: 25px;
 }
 
 .panelitems {

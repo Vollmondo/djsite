@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
@@ -62,6 +63,25 @@ def contacts(request):
 def login(request):
     return render(request,'wiki/login.html', {'menu': menu, 'title': 'Войти'})
 
+class WikiSearch(ListView):
+    model = Wiki
+    template_name = 'wiki/search_result.html'
+    context_object_name = 'results'
+
+    def get_queryset(self):
+        search_query = self.request.GET.get('search_query')
+        queryset = super().get_queryset()
+        if search_query:
+            queryset = queryset.filter(Q(title__icontains=search_query) | Q(content__icontains=search_query))
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        search_query = self.request.GET.get('search_query')
+        context['search_query'] = search_query
+        context['menu'] = menu
+        context['title'] = 'Главная страница'
+        return context
 
 class AddPage(CreateView):
     form_class = AddPostForm

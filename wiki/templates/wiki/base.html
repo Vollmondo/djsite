@@ -23,6 +23,10 @@
 	{% if not forloop.last %}
 			<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% else %}
+            <li><form class="search-form" action="{% url 'search' %}" method="GET">
+                <div class="search-form-input-cntr"><input class="search-form-input" type="text" name="search_query" placeholder="Поиск"></div>
+                <button class="search-form-btn" type="submit"></button>
+            </form></li>
 			<li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
 	{% endif %}
 {% endfor %}
